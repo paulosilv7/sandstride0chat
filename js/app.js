@@ -315,7 +315,7 @@ function renderFilters() {
   const st = [['todas', 'Todas', total], ['aguardando', 'Não respondidas', aguard], ['respondidas', 'Respondidas', total - aguard]];
   $('seg').innerHTML = st.map((x) => `<button type="button" class="seg-b" data-act="status" data-v="${x[0]}" aria-pressed="${S.status === x[0]}"><span class="seg-n">${x[2]}</span><span class="seg-l">${x[1]}</span></button>`).join('');
   const mk = [['todos', 'Todos', null], ['mercado_livre', 'Mercado Livre', 'ml'], ['shopee', 'Shopee', 'sp'], ['tiktok_shop', 'TikTok Shop', 'tt']];
-  $('mks').innerHTML = mk.map((x) => `<button type="button" class="pill${x[2] ? ' logo' : ''}" data-act="mk" data-v="${x[0]}" aria-pressed="${S.mk === x[0]}" aria-label="${x[1]}" title="${x[1]}">${x[2] ? logo(x[2], x[1]) : x[1]}</button>`).join('');
+  $('mks').innerHTML = mk.map((x) => `<button type="button" class="pill${x[2] ? ` logo pk-${x[2]}` : ''}" data-act="mk" data-v="${x[0]}" aria-pressed="${S.mk === x[0]}" aria-label="${x[1]}" title="${x[1]}">${x[2] ? logo(x[2], x[1]) : x[1]}</button>`).join('');
   const at = [['todos', 'Todos'], ['minhas', 'Minhas'], ['livres', 'Sem responsável']];
   $('ats').innerHTML = at.map((x) => `<button type="button" class="pill sm" data-act="atend" data-v="${x[0]}" aria-pressed="${S.atend === x[0]}">${x[1]}</button>`).join('');
   if (S.loja !== 'todas' && !S.lojas.some((l) => l.id === S.loja)) S.loja = 'todas';
