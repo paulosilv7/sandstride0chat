@@ -578,7 +578,7 @@ function montarCasca() {
   <aside class="side">
     <div class="brand"><img class="wm-logo" src="img/sandstride.png" alt="Sandstride"><div class="wm-sub">Central de atendimento</div></div>
     <label class="busca"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8"/><path d="m14 14 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <input id="busca" type="search" placeholder="Buscar ou nº do pedido" aria-label="Buscar cliente, pedido ou mensagem" autocomplete="off"></label>
+      <input id="busca" type="search" placeholder="Cliente ou pedido" aria-label="Buscar cliente, pedido ou mensagem" autocomplete="off"></label>
     <nav class="nav" aria-label="Navegação principal">
       <button type="button" data-act="view" data-v="inbox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">${ICONES.inbox}</svg>Caixa de entrada <span class="count" id="navCount">0</span></button>
       <button type="button" data-act="view" data-v="rapidas"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">${ICONES.rapidas}</svg>Respostas rápidas</button>

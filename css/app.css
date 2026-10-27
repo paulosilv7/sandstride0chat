@@ -308,3 +308,10 @@ body{margin:0}
 
 .wm-logo{display:block;height:22px;width:auto;max-width:100%}
 .brand .wm-sub{margin-top:6px}
+
+.brand{padding:4px 16px 0}
+.wm-logo{height:20px}
+.brand .wm-sub{margin-top:8px;font-size:12px}
+.busca{gap:8px;padding:0 14px}
+.busca input{font-size:12.5px}
+@media (max-width:860px){.brand{padding:2px 6px}}
