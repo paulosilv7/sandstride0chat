@@ -315,3 +315,26 @@ body{margin:0}
 .busca{gap:8px;padding:0 14px}
 .busca input{font-size:12.5px}
 @media (max-width:860px){.brand{padding:2px 6px}}
+
+/* computador: menu lateral fixo na altura da tela; só a área da direita rola */
+@media (min-width:861px){
+  html,body{height:100%;overflow:hidden}
+  .shell{flex-wrap:nowrap;height:calc(100vh - 32px);height:calc(100dvh - 32px);align-items:stretch}
+  .side{flex:0 0 240px;height:100%;overflow-y:auto}
+  .lado-rodape{margin-top:auto}
+  .main{flex:1 1 0;height:100%;overflow-y:auto;padding:8px 6px 8px 0;scrollbar-width:thin}
+  .rows{max-height:none;overflow-y:visible}
+  .msgs{max-height:none}
+  .lista{flex:0 0 380px;max-width:400px}
+}
+@media (min-width:861px){
+  .inbox{height:100%;min-height:0}
+  .sandy{flex:none}
+  .cols{flex:1 1 0;min-height:520px;flex-wrap:nowrap;min-width:0}
+  .lista,.thread{height:auto;min-height:0;overflow:hidden}
+  .rows{flex:1 1 0;min-height:0;overflow-y:auto}
+  .thread .corpo{flex:1 1 0;min-height:0}
+  .thread .col-msg{min-height:0}
+  .thread .msgs{flex:1 1 0;min-height:120px;overflow-y:auto}
+  .thread .painel{overflow-y:auto;max-height:100%}
+}
