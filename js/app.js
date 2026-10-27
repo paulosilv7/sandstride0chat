@@ -14,6 +14,8 @@ const MKS = {
   shopee: { k: 'sp', nome: 'Shopee', sigla: 'SP' },
   tiktok_shop: { k: 'tt', nome: 'TikTok Shop', sigla: 'TT' },
 };
+const LOGO = { ml: 'img/mercadolivre.png', sp: 'img/shopee.png', tt: 'img/tiktokshop.png' };
+const logo = (k, nome) => `<span class="mk mk-${k}"><img src="${LOGO[k]}" alt="${esc(nome)}"></span>`;
 const TIPO = { pos_venda: 'Pós-venda', pergunta: 'Pergunta do anúncio', chat: 'Chat' };
 const ESCOPO = { todas: 'Todas as lojas', mercado_livre: 'Mercado Livre', shopee: 'Shopee', tiktok_shop: 'TikTok Shop' };
 const ST_PEDIDO = { paid: 'Pago', confirmed: 'Confirmado', cancelled: 'Cancelado', payment_required: 'Aguardando pagamento', payment_in_process: 'Pagamento em análise', partially_paid: 'Parcialmente pago' };
@@ -312,8 +314,8 @@ function renderFilters() {
   const total = S.convs.length, aguard = S.convs.filter((c) => c.aguardando).length;
   const st = [['todas', 'Todas', total], ['aguardando', 'Não respondidas', aguard], ['respondidas', 'Respondidas', total - aguard]];
   $('seg').innerHTML = st.map((x) => `<button type="button" class="seg-b" data-act="status" data-v="${x[0]}" aria-pressed="${S.status === x[0]}"><span class="seg-n">${x[2]}</span><span class="seg-l">${x[1]}</span></button>`).join('');
-  const mk = [['todos', 'Todos'], ['mercado_livre', 'Mercado Livre'], ['shopee', 'Shopee'], ['tiktok_shop', 'TikTok Shop']];
-  $('mks').innerHTML = mk.map((x) => `<button type="button" class="pill" data-act="mk" data-v="${x[0]}" aria-pressed="${S.mk === x[0]}">${x[1]}</button>`).join('');
+  const mk = [['todos', 'Todos', null], ['mercado_livre', 'Mercado Livre', 'ml'], ['shopee', 'Shopee', 'sp'], ['tiktok_shop', 'TikTok Shop', 'tt']];
+  $('mks').innerHTML = mk.map((x) => `<button type="button" class="pill${x[2] ? ' logo' : ''}" data-act="mk" data-v="${x[0]}" aria-pressed="${S.mk === x[0]}" aria-label="${x[1]}" title="${x[1]}">${x[2] ? logo(x[2], x[1]) : x[1]}</button>`).join('');
   const at = [['todos', 'Todos'], ['minhas', 'Minhas'], ['livres', 'Sem responsável']];
   $('ats').innerHTML = at.map((x) => `<button type="button" class="pill sm" data-act="atend" data-v="${x[0]}" aria-pressed="${S.atend === x[0]}">${x[1]}</button>`).join('');
   if (S.loja !== 'todas' && !S.lojas.some((l) => l.id === S.loja)) S.loja = 'todas';
@@ -328,7 +330,7 @@ function renderList() {
     const et = c.tags.slice(0, 2).map((n) => `<span class="etq sm ${etqCls(n)}">${esc(n)}</span>`).join('') + (c.tags.length > 2 ? `<span class="etq sm e1">+${c.tags.length - 2}</span>` : '');
     return `<button type="button" class="row" data-act="sel" data-id="${c.id}" aria-pressed="${c.id === S.sel}"><span class="av">${inicial(c.nome)}</span><span class="rb">` +
       `<span class="r1"><span class="nm">${esc(c.nome)}</span><span class="tg ${e.cls}">${esc(e.t)}</span></span>` +
-      `<span class="r2"><span class="mk mk-${c.mk}">${c.sigla}</span><span class="tx">${esc(c.lojaNome)} · ${TIPO[c.tipo] ?? ''}</span></span>` +
+      `<span class="r2">${logo(c.mk, c.mkNome)}<span class="tx">${esc(c.lojaNome)} · ${TIPO[c.tipo] ?? ''}</span></span>` +
       `<span class="r3">${c.ultimaDe === 'loja' ? 'Você: ' : ''}${esc(c.ultimaTexto)}</span>` +
       (et ? `<span class="rowetq">${et}</span>` : '') +
       `<span class="resp${c.atendenteId === S.user?.id ? ' eu' : ''}">${esc(respTxt(c))}</span></span></button>`;
@@ -418,7 +420,7 @@ function renderThread() {
     `<div class="lin"><button type="button" class="voltar" data-act="voltar"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12 4 6 10l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Conversas</button><span class="sp"></span>` +
     (meu && !c.bloqueada ? '<button type="button" class="bt2" data-act="liberar">Liberar conversa</button>' : '') +
     `<button type="button" class="bt2" data-act="toggle-painel" aria-pressed="${S.painel}">${S.painel ? 'Ocultar' : 'Ver'} ${nomeDados}</button></div>` +
-    `<div class="th-h"><span class="av big">${inicial(c.nome)}</span><div class="th-t"><div class="th-n">${esc(c.nome)}</div><div class="tags"><span class="tg2"><span class="mk mk-${c.mk}">${c.sigla}</span>${esc(c.mkNome)} · ${esc(c.lojaNome)}</span><span class="tg2 info">${TIPO[c.tipo] ?? ''}</span><span class="tg2 dono">${esc(respTxt(c))}</span></div></div><span class="tg ${e.cls}">${esc(e.t)}</span></div>` +
+    `<div class="th-h"><span class="av big">${inicial(c.nome)}</span><div class="th-t"><div class="th-n">${esc(c.nome)}</div><div class="tags"><span class="tg2">${logo(c.mk, c.mkNome)}${esc(c.lojaNome)}</span><span class="tg2 info">${TIPO[c.tipo] ?? ''}</span><span class="tg2 dono">${esc(respTxt(c))}</span></div></div><span class="tg ${e.cls}">${esc(e.t)}</span></div>` +
     etqs +
     `<div class="corpo"><div class="col-msg"><div class="ref"><span class="eyebrow">${c.refRotulo}</span><span class="refv">${esc(c.ref)}</span></div><div class="msgs" id="msgs">${msgs}</div>${rodape}</div>${S.painel ? painelHtml(c) : ''}</div>`;
   S.sigThread = sig;
