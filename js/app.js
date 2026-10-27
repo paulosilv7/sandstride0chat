@@ -276,6 +276,7 @@ function humorAtual(m) {
   if (m.rec >= 3) return 'brava';
   if (m.total >= 40) return 'cansada';
   if (m.paradas >= 1 && S.cfg.ativo) return 'preocupada';
+  if (m.pend === 0 && m.total === 0) return 'tranquila';
   if (m.pend === 0 || m.total >= 20) return 'feliz';
   return 'tranquila';
 }
@@ -285,7 +286,7 @@ function renderSandy() {
   const txt = {
     feliz: `Dia produtivo! Já respondemos ${pl(m.total, 'mensagem', 'mensagens')} hoje e ${m.pend === 0 ? 'não tem ninguém esperando.' : `só ${pl(m.pend, 'cliente aguarda', 'clientes aguardam')} resposta.`}`,
     tranquila: m.total === 0 && m.pend === 0
-      ? 'Por enquanto está tudo calmo: nenhuma mensagem esperando resposta.'
+      ? 'Hoje o dia foi bem tranquilo, não tivemos nenhum movimento por cá.'
       : `Hoje o dia está tranquilo: ${pl(m.total, 'mensagem respondida', 'mensagens respondidas')} e ${pl(m.pend, 'cliente ainda aguarda', 'clientes ainda aguardam')} resposta.`,
     preocupada: `Estou de olho: ${pl(m.paradas, 'conversa está', 'conversas estão')} sem resposta há mais de ${curto(S.cfg.aviso)}. Vale começar por elas. No total, já respondemos ${pl(m.total, 'mensagem', 'mensagens')} hoje.`,
     brava: `Hoje está pesado: ${pl(m.rec, 'conversa tem', 'conversas têm')} reclamação ou problema sério. Vale priorizar essas.`,
@@ -575,7 +576,7 @@ const ICONES = {
 function montarCasca() {
   $('raiz').innerHTML = `<div class="shell">
   <aside class="side">
-    <div class="brand"><div class="wm">SANDSTRIDE</div><div class="wm-sub">Central de atendimento</div></div>
+    <div class="brand"><img class="wm-logo" src="img/sandstride.png" alt="Sandstride"><div class="wm-sub">Central de atendimento</div></div>
     <label class="busca"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8"/><path d="m14 14 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       <input id="busca" type="search" placeholder="Buscar ou nº do pedido" aria-label="Buscar cliente, pedido ou mensagem" autocomplete="off"></label>
     <nav class="nav" aria-label="Navegação principal">

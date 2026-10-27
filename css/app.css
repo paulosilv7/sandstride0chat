@@ -305,3 +305,6 @@ body{margin:0}
 .pill.pk-ml[aria-pressed="true"]{background:#FFE600;border-color:#FFE600}
 .pill.pk-sp[aria-pressed="true"]{background:#EE4D2D;border-color:#EE4D2D}
 .pill.pk-tt[aria-pressed="true"]{background:#111111;border-color:#111111}
+
+.wm-logo{display:block;height:22px;width:auto;max-width:100%}
+.brand .wm-sub{margin-top:6px}
