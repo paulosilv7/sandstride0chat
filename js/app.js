@@ -317,9 +317,9 @@ function renderFilters() {
   const at = [['todos', 'Todos'], ['minhas', 'Minhas'], ['livres', 'Sem responsável']];
   $('ats').innerHTML = at.map((x) => `<button type="button" class="pill sm" data-act="atend" data-v="${x[0]}" aria-pressed="${S.atend === x[0]}">${x[1]}</button>`).join('');
   if (S.loja !== 'todas' && !S.lojas.some((l) => l.id === S.loja)) S.loja = 'todas';
-  $('loja').innerHTML = '<option value="todas">Todas as lojas</option>' + S.lojas.map((l) => `<option value="${l.id}"${S.loja === l.id ? ' selected' : ''}>${esc(l.nome)} · ${MKS[l.marketplace]?.nome ?? ''}</option>`).join('');
+  $('loja').innerHTML = '<option value="todas">Todas</option>' + S.lojas.map((l) => `<option value="${l.id}"${S.loja === l.id ? ' selected' : ''}>${esc(l.nome)}</option>`).join('');
   if (S.etq !== 'todas' && !S.etiquetas.some((e) => e.nome === S.etq)) S.etq = 'todas';
-  $('etqSel').innerHTML = '<option value="todas">Todas as etiquetas</option>' + S.etiquetas.map((e) => `<option value="${esc(e.nome)}"${S.etq === e.nome ? ' selected' : ''}>${esc(e.nome)}</option>`).join('');
+  $('etqSel').innerHTML = '<option value="todas">Todas</option>' + S.etiquetas.map((e) => `<option value="${esc(e.nome)}"${S.etq === e.nome ? ' selected' : ''}>${esc(e.nome)}</option>`).join('');
 }
 function renderList() {
   const lista = S.convs.filter(casa).sort((a, b) => (Number(b.aguardando) - Number(a.aguardando)) || (b.espera - a.espera));
@@ -591,8 +591,8 @@ function montarCasca() {
         <section class="card lista" aria-label="Lista de conversas">
           <div class="seg" id="seg" role="group" aria-label="Situação da conversa"></div>
           <div class="mks" id="mks" role="group" aria-label="Marketplace"></div>
-          <label class="loja"><span class="eyebrow">Loja</span><span class="sel"><select id="loja" aria-label="Filtrar por loja"></select></span></label>
-          <label class="loja"><span class="eyebrow">Etiqueta</span><span class="sel"><select id="etqSel" aria-label="Filtrar por etiqueta"></select></span></label>
+          <div class="dupla"><label class="loja"><span class="eyebrow">Loja</span><span class="sel"><select id="loja" aria-label="Filtrar por loja"></select></span></label>
+          <label class="loja"><span class="eyebrow">Tag</span><span class="sel"><select id="etqSel" aria-label="Filtrar por tag"></select></span></label></div>
           <div class="filtros2"><span class="eyebrow">Atendente</span><div class="mks" id="ats" role="group" aria-label="Atendente"></div></div>
           <div class="rows" id="rows"></div>
         </section>
